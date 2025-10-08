@@ -22,7 +22,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +38,14 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  final int _selectedIndex = 0;
   String? _pdfPath;
   String? _imagePath;
   String? _videoPath;
@@ -93,31 +93,66 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF5F5F7),  // Light gray background
       appBar: AppBar(
-        title: const Text('Multimedia Editor'),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Text(
+          'Modern App',
+          style: TextStyle(
+            color: Colors.black87,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
       ),
-      body: _buildBody(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(  // Changed from BottomNavigationBar.item
-            icon: Icon(Icons.picture_as_pdf),
-            label: 'PDF Viewer',
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Welcome',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Explore your modern app experience',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 24),
+              _buildBody(),
+            ],
           ),
-          BottomNavigationBarItem(  // Changed from BottomNavigationBar.item
-            icon: Icon(Icons.image),
-            label: 'Photo Editor',
-          ),
-          BottomNavigationBarItem(  // Changed from BottomNavigationBar.item
-            icon: Icon(Icons.video_library),
-            label: 'Video Editor',
-          ),
-        ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: Text('Get Started'),
+        icon: Icon(Icons.arrow_forward),
+        backgroundColor: Color(0xFF007AFF),
       ),
     );
   }
